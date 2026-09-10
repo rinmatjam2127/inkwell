@@ -46,3 +46,11 @@ e.
 ##### Consequences
 **Positive**
 - Supports fast and gradual development.
+- Keeps the code organized and easier to maintain.
+- Makes it easier to separate features, such as search or not
+ifications, into their own services if the project grows.
+**Negative**
+- The Express server is a single deployment.
+- If the server crashes, all API features become unavailable.
+- This is an acceptable trade-off for this project.
+- We can revisit this decision if the system later requires higher availability.
