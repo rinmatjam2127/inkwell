@@ -1,3 +1,8 @@
+//server/srg/utils/validations.js
+//a functionally cohesive (lecture 4) validation helper,
+//extracted proactively to avoid duplicating the same
+//check inside both AuthService and PostService
+
 export class ValidationError extends Error {
     constructor(message, code) {
         super(message);

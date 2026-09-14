@@ -1,3 +1,8 @@
+/*server/src/repositories/user.repository.js
+
+Per ADR-001 (Lecture 5), this is the ONLY module permitted
+to query the table directly
+*/
 import { prisma } from "../db/client.js";
 export const UserRepository = {
     findByEmail(email) {
