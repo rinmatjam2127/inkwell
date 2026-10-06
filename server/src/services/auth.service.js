@@ -7,6 +7,9 @@ class WeakPasswordError extends Error {}
 class InvalidCredentialsError extends Error {}
 
 const MIN_PASSWORD_LENGTH = 8;
+const BCRYPT_COST_FACTOR = 10;
+
+
 
 export const AuthService = {
     async register({ email, displayName, password }) {
@@ -20,7 +23,7 @@ export const AuthService = {
         if (password.length < MIN_PASSWORD_LENGTH) {
             throw new WeakPasswordError();
         }
-        const passwordHash = await bcrypt.hash(password, 10);
+        const passwordHash = await bcrypt.hash(password, BCRYPT_COST_FACTOR);
         let user;
         try {
             user = await UserRepository.create({ email, displayName, passwordHash });
@@ -31,6 +34,7 @@ export const AuthService = {
             throw new EmailAlreadyRegisteredError();
         }
         const tokens = TokenService.issueTokens(user);
+        
         return { user, ...tokens };
     },
     async login({ email, password }) {
