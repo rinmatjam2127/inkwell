@@ -10,7 +10,7 @@
 - Review findings logged in docs/reviews/
 
 ## Testing (expanded in Lecture 12-14)
-- Unit tests: Services and Repositories (Jest) — starting Lecture 12
+- Unit tests: Services and Repositories (Jest) — ACTIVE as of Lecture 12
 - Integration tests: Routes (Supertest) — starting Lecture 13
 - End-to-end tests: critical user flows (Playwright) — starting Lecture 14
 
@@ -33,11 +33,8 @@
 
 ## Metrics Snapshot
 - Total Git: 16 + 1 for lecture 11
-
-## Logged Defects: 
-- count: 0
-
-## Backlog Items Defined
--  Done count: 6
-- Requirments Defined count: 2
-- Backlog count: 1
+- Logged Defects: 0
+- **Backlog Items Defined**
+    - Done count: 6
+    - Requirments Defined count: 2
+    - Backlog count: 1
