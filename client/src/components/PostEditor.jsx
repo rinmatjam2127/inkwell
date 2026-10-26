@@ -73,7 +73,7 @@ export function PostEditor() {
 
             {errorMessage && (
                 <p id="post-error" role="alert" className="text-sm text-red-600">
-                    (errorMessage)
+                    {errorMessage}
                 </p>
             )}
 

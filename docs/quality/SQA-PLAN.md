@@ -11,7 +11,8 @@
 
 ## Testing (expanded in Lecture 12-14)
 - Unit tests: Services and Repositories (Jest) — ACTIVE as of Lecture 12
-- Integration tests: Routes (Supertest) — starting Lecture 13
+- Integration tests: Routes (Supertest) — ACTIVE as of Lecture 13
+- Component Tests: React components (RTL) - ACTIVE as of Lecture 13
 - End-to-end tests: critical user flows (Playwright) — starting Lecture 14
 
 ## Defect Tracking
