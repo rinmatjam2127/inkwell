@@ -29,7 +29,7 @@ export function NavBar() {
             `text-sm ${isActive ? "font-semibold text-indigo-600" : "text-gray-600"}`
           }
         >
-          Log In 
+          Log In
         </NavLink>
       </div>
     </nav>
