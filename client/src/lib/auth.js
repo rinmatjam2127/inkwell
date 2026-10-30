@@ -7,6 +7,10 @@ export function saveToken(token) {
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY);
 }
+export function clearToken() {
+  localStorage.removeItem(TOKEN_KEY);
+}
+
 export function saveUser(user) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }

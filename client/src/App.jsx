@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
 import { Feed } from "./components/Feed";
 import { PostEditor } from "./components/PostEditor";
-import { LoginForm } from "./components/LoginForm";
+import { LoginForm } from "./components/LoginForm"
 
 export default function App() {
   return (

@@ -11,37 +11,38 @@ export function PostEditor() {
   const [title, setTitle] = useState(""); 
   const [body, setBody] = useState(""); 
   const [errorMessage, setErrorMessage] = useState(null); 
-  
   const navigate = useNavigate(); 
 
-  async function handlePublish() { 
-    setStatus(STATES.PUBLISHING); 
-    setErrorMessage(null); 
-    try { 
-      const response = await fetch("/api/posts", { 
-        method: "POST", 
-        headers: { 
-          "Content-Type": "application/json", 
-          Authorization: `Bearer ${getToken()}`, 
-        }, 
-        body: JSON.stringify({ title, body, authorId: getUser()?.id }), 
-      }); 
-
-      if (!response.ok) { 
-        const data = await response.json(); 
-        // Safely extract whatever shape the backend error contract takes
-        const fallbackMsg = data.error?.message || data.error || data.message || "Failed to publish.";
-        setErrorMessage(fallbackMsg); 
-        setStatus(STATES.EDITING); 
-        return; 
-      } 
-
-
-      navigate("/"); 
-    } catch { 
-      setErrorMessage("Something went wrong. Please try again."); 
-      setStatus(STATES.EDITING); 
-    } 
+  async function handlePublish() {
+    setStatus(STATES.PUBLISHING);
+    setErrorMessage(null);
+  
+    const user = getUser(); // 👈 NEW LINE — reads the logged-in user
+  
+    try {
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ authorId: user.id, title, body }), // 👈 CHANGED — added authorId
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Publish rejected:", response.status, errorData);
+        setErrorMessage(errorData?.error?.message || "Publishing failed");
+        setStatus(STATES.EDITING);
+        return;
+      }
+  
+      navigate("/");
+    } catch (err) {
+      console.error("Publish failed:", err);
+      setErrorMessage("Something went wrong. Please try again.");
+      setStatus(STATES.EDITING);
+    }
   }
 
   return ( 
@@ -55,11 +56,12 @@ export function PostEditor() {
         }} 
       > 
         <div> 
-          <label htmlFor="post-title" className="block text-sm font-medium text-gray-700"> 
+          <label htmlFor="Title" className="block text-sm font-medium text-gray-700"> 
             Title 
           </label> 
           <input 
-            id="post-title" 
+            id="Title" 
+            type="text" // 👈 Add explicit text type attribute
             value={title} 
             onChange={(e) => { 
               setTitle(e.target.value); 
@@ -70,11 +72,11 @@ export function PostEditor() {
           /> 
         </div> 
         <div> 
-          <label htmlFor="post-body" className="block text-sm font-medium text-gray-700"> 
+          <label htmlFor="Body" className="block text-sm font-medium text-gray-700"> 
             Body 
           </label> 
           <textarea 
-            id="post-body" 
+            id="Body" 
             value={body} 
             onChange={(e) => { 
               setBody(e.target.value); 

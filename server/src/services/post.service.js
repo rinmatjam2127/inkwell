@@ -11,7 +11,7 @@ export const PostService = {
         const post = await PostRepository.createWithTags({
             authorId, title, body, tagNames,
             status: "PUBLISHED",
-            published: new Date(),
+            publishedAt: new Date(),
         });
 
         EventBus.emit("post.published", {

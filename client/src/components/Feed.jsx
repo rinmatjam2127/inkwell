@@ -23,10 +23,12 @@ export function Feed() {
           </Link>
         </div>
       )}
+      console.log(PostCarpost.id)
       {posts !== null && posts.length > 0 && (
         <ul className="space-y-6">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
+            
           ))}
         </ul>
       )}

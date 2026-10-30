@@ -7,11 +7,10 @@ const STATES = { IDLE: "idle", EDITING: "editing", SUBMITTING: "submitting" };
 
 export function LoginForm() { 
   // 2. Declare all missing React state hooks
+  const [status, setStatus] = useState(STATES.IDLE);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState(STATES.IDLE);
   const [errorMessage, setErrorMessage] = useState(null);
-  
   const navigate = useNavigate(); 
 
   async function handleLogin() { 
@@ -63,11 +62,15 @@ export function LoginForm() {
               setEmail(e.target.value);
               setStatus(STATES.EDITING);
             }}
-            className="mt-1 block w-full rounded border-gray-300 shadow-sm"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm" 
+            aria-describedby={errorMessage ? "login-error" : undefined}
           />
         </div>
         <div>
-          <label htmlFor="login-password" className="block text-sm font-medium text-gray-700">
+          <label 
+            htmlFor="login-password" 
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
