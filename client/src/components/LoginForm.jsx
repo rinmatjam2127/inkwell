@@ -1,39 +1,44 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"; 
+import { useNavigate } from "react-router-dom"; 
 import { saveToken, saveUser } from "../lib/auth";
 
-const STATES = { IDLE: "idle", EDITING: "editing", SUBMITTING: "submitting" };
+// 1. Define the component states
+const STATES = { IDLE: "idle", EDITING: "editing", SUBMITTING: "submitting" }; 
 
-export function LoginForm() {
-  const [status, setStatus] = useState(STATES.IDLE);
+export function LoginForm() { 
+  // 2. Declare all missing React state hooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState(STATES.IDLE);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate(); 
 
-  async function handleLogin() {
-    setStatus(STATES.SUBMITTING);
-    setErrorMessage(null);
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) {
-        const { error } = await response.json();
-        setErrorMessage(error.message);
-        setStatus(STATES.EDITING);
-        return;
-      }
-      const { accessToken, user } = await response.json();
-      saveToken(accessToken);
+  async function handleLogin() { 
+    setStatus(STATES.SUBMITTING); 
+    setErrorMessage(null); 
+    try { 
+      const response = await fetch("/api/auth/login", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ email, password }), 
+      }); 
+
+      if (!response.ok) { 
+        const { error } = await response.json(); 
+        setErrorMessage(error.message); 
+        setStatus(STATES.EDITING); 
+        return; 
+      } 
+
+      const { accessToken, user } = await response.json(); 
+      saveToken(accessToken); 
       saveUser(user);
-      navigate("/");
-    } catch {
-      setErrorMessage("Something went wrong. Please try again.");
-      setStatus(STATES.EDITING);
-    }
+      navigate("/"); 
+    } catch { 
+      setErrorMessage("Something went wrong. Please try again."); 
+      setStatus(STATES.EDITING); 
+    } 
   }
 
   return (
