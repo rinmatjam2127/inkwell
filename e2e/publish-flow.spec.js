@@ -39,7 +39,7 @@ for (const viewport of viewports) {
       await expect(page).toHaveURL("http://localhost:5173/");
 
       // 4. Navigate to editor & publish
-      const writeLink = page.getByRole("link", { name: "Write" });
+      const writeLink = page.getByRole("link", { name: "Write", exact: true });
       await writeLink.scrollIntoViewIfNeeded();
       await writeLink.click();
 

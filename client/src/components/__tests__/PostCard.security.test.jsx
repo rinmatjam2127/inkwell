@@ -1,0 +1,15 @@
+import { render, screen } from "@testing-library/react";
+import { test, expect } from "vitest";
+import { PostCard } from "../PostCard";
+test("renders post body as text, never as executable HTML", () => {
+    const maliciousPost = {
+        id: "1",
+        title: "Test",
+        body: "<script>window.__xss = true;</script>",
+        author: { displayName: "Attacker" },
+    };
+    render(<PostCard post={maliciousPost} />);
+    expect(screen.getByText(/<script>/)).toBeInTheDocument();
+    // rendered as literal text
+    expect(window.__xss).toBeUndefined(); // never executed
+});

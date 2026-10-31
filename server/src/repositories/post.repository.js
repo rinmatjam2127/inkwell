@@ -54,23 +54,13 @@ export const PostRepository = {
             return { posts: rows.slice(0, pageSize), hasMore };
     },
 
-    async searchPublished({ query, page, pageSize }) {
-        const where = {
-          status: "PUBLISHED",
-          OR: [
-            { title: { contains: query, mode: "insensitive" } },
-            { body: { contains: query, mode: "insensitive" } },
-          ],
-        };
-        const rows = await prisma.post.findMany({
-          where,
-          orderBy: { publishedAt: "desc" },
-          skip: (page - 1) * pageSize,
-          take: pageSize + 1,
-        });
-        const hasMore = rows.length > pageSize;
-        return { posts: rows.slice(0, pageSize), hasMore };
-      },
+    findById(id) {
+        return prisma.post.findUnique({ where: { id } });
+    },
+
+    delete(id) {
+        return prisma.post.delete({ where: { id } });
+    },
 
     async findPublishedWithAuthor({ page, pageSize }) {
         const rows = await prisma.post.findMany({

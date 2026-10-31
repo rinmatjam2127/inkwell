@@ -3,9 +3,12 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom"; 
 import { vi, test, expect, beforeEach } from "vitest"; 
 import { PostEditor } from "../PostEditor"; 
+import * as auth from "../../lib/auth";
 
 beforeEach(() => { 
   global.fetch = vi.fn(); 
+  vi.spyOn(auth, "getUser").mockReturnValue({ id: "test-user-id" });
+  vi.spyOn(auth, "getToken").mockReturnValue("test-token");
 }); 
 
 test("shows an error message anchored to the form when publish fails", async () => { 

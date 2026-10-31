@@ -31,4 +31,12 @@ export const PostService = {
     async search({ query, page = 1, pageSize = 10 }) {
         return SubstringSearchStrategy.search(query, { page, pageSize });
     },
+
+    async getById(id) {
+        return PostRepository.findById(id);
+    },
+
+    async delete(id) {
+        return PostRepository.delete(id);
+    },
 };
