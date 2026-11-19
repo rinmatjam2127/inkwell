@@ -28,8 +28,6 @@ for (const viewport of viewports) {
         console.log(`💥 BROWSER EXCEPTION: ${exception.message}`);
       });
 
-      await page.goto("http://localhost:5173/login");
-
 
       // 3. Log in via UI
       await page.goto("http://localhost:5173/login");
